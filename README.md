@@ -50,6 +50,8 @@ POST `api/users/login`
 ### Uncollected Invoice
 GET `api/invoices/uncollected_invoice/`
 
+NOTE: This displayed all uncollected invoice where the <strong>due_date</strong> field (invoice table) is equal to the current month and <strong>collected_date</strong> is NULL or 0000-00-00.
+
 <strong>Response</strong>
 ```javascript
 200  OK
@@ -180,8 +182,6 @@ POST `/api/invoices/collect/`
 |----------------|----------|-----------|-----------------------|-----------------------
 | id        |  yes     |  int      | invoice id             |  100
 | collected_date       |  yes     |  date |      |  2020-01-12
-| meta_id        |  yes     |  int      | invoice id where attachment are belong |  100
-| type        |  yes     |  text      |      |  invoice
 | attachment_name[]        |  yes     |  file      |      |  sample.pdf
 
 <strong>Response</strong>
@@ -203,10 +203,8 @@ POST `/api/invoices/deliver/`
 |      Name      | Required |   Type    |    Description        |    Sample Data 
 |----------------|----------|-----------|-----------------------|-----------------------
 | id        |  yes     |  int      | invoice id             |  100
-| sent_date       |  yes     |  date |      |  2020-01-12
-| received_by       |  yes     |  text |      |  2020-01-12
-| meta_id        |  yes     |  int      | invoice id where attachment are belong |  100
-| type        |  yes     |  text      |      |  invoice
+| sent_date       |  yes     |  date |      |  2020-11-10
+| received_by       |  yes     |  text |      |  Karen Joy Morales
 | attachment_name[]        |  yes     |  file      |      |  sample.pdf
 
 <strong>Response</strong>
