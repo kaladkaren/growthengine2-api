@@ -10,9 +10,8 @@ Growth Engine API
     + [Uncollected Invoice](#uncollected-invoice)
     + [Collected Invoice](#collected-invoice)
     + [Get Specific Invoice](#get-specific-invoice)
-    + [Update Invoice: Tag as Collected / Tag as Delivered](#update-invoice)
-    + [Add Attachment](#add-attachment)
-    + [Delete Attachment](#delete-attachment)
+    + [Tag as Collected](#tag-as-collected)
+    + [Tag as Deliver](#tag-as-deliver)
 
 ## Users Login
 
@@ -174,16 +173,41 @@ Sample: localhost/growth-engine-master/api/invoices/view_invoice/100
     }
 }
 ```
-### Update Invoice
-POST `api/invoices/update_invoice/invoice_id`
-
-Sample: localhost/growth-engine-master/api/invoices/update_invoice/100
+### Tag as Collected
+POST `/api/invoices/collect/`
 
 |      Name      | Required |   Type    |    Description        |    Sample Data 
 |----------------|----------|-----------|-----------------------|-----------------------
-| collected_date        |  yes     |  date      |        -              |  2020-01-12
+| id        |  yes     |  int      | invoice id             |  100
+| collected_date       |  yes     |  date |      |  2020-01-12
+| meta_id        |  yes     |  int      | invoice id where attachment are belong |  100
+| type        |  yes     |  text      |      |  invoice
+| attachment_name[]        |  yes     |  file      |      |  sample.pdf
+
+<strong>Response</strong>
+```javascript
+200  OK
+{
+    "data": true,
+    "meta": {
+        "message": "Invoice tagged as collected successfully.",
+        "code": "OK",
+        "status": "200"
+    }
+}
+```
+
+### Tag as Deliver
+POST `/api/invoices/deliver/`
+
+|      Name      | Required |   Type    |    Description        |    Sample Data 
+|----------------|----------|-----------|-----------------------|-----------------------
+| id        |  yes     |  int      | invoice id             |  100
 | sent_date       |  yes     |  date |      |  2020-01-12
-| received_by        |  yes     |  text      |        -              |  Karen Joy
+| received_by       |  yes     |  text |      |  2020-01-12
+| meta_id        |  yes     |  int      | invoice id where attachment are belong |  100
+| type        |  yes     |  text      |      |  invoice
+| attachment_name[]        |  yes     |  file      |      |  sample.pdf
 
 <strong>Response</strong>
 ```javascript
@@ -191,55 +215,11 @@ Sample: localhost/growth-engine-master/api/invoices/update_invoice/100
 {
     "data": true,
     "meta": {
-        "message": "Successfuly updated invoice !",
+        "message": "Invoice tagged as delivered successfully.",
         "code": "OK",
         "status": "200"
     }
 }
 ```
 
-### Add Attachment
-POST `api/invoices/add_attachment/invoice_id`
 
-Sample: localhost/growth-engine-master/api/invoices/add_attachment/100
-
-|      Name      | Required |   Type    |    Description        |    Sample Data 
-|----------------|----------|-----------|-----------------------|-----------------------
-| meta_id        |  yes     |  int      |        -              |  100
-| type       |  yes     |  text |      |  invoice
-| attachment_name[]        |  yes     |  text      |        -              |  sample.pdf
-
-<strong>Response</strong>
-```javascript
-200  OK
-{
-    "data": {
-        "name": [
-            "1600065195_sample.pdf"
-        ]
-    },
-    "meta": {
-        "message": "Successfuly added attachment !",
-        "code": "OK",
-        "status": "200"
-    }
-}
-```
-
-### Delete Attachment
-POST `api/invoices/delete_attachment/attachment_id`
-
-Sample: localhost/growth-engine-master/api/invoices/add_attachment/414
-
-<strong>Response</strong>
-```javascript
-200  OK
-{
-    "data": true,
-    "meta": {
-        "message": "Successfuly deleted attachment !",
-        "code": "OK",
-        "status": "200"
-    }
-}
-```
